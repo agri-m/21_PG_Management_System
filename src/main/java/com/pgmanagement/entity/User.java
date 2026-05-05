@@ -1,13 +1,26 @@
 package com.pgmanagement.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(unique = true, nullable = false)
     private String email;
+    
+    @Column(unique = true)
     private String phone;
-    private String role; // ADMIN, USER, TENANT, etc.
+    
+    @Column(nullable = false)
+    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

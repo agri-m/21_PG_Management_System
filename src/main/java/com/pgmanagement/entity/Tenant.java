@@ -1,15 +1,30 @@
 package com.pgmanagement.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "tenants")
 public class Tenant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId; // Reference to User (tenant)
-    private Long bedId; // Reference to Bed
+    
+    @Column(nullable = false)
+    private Long userId;
+    
+    @Column
+    private Long bedId;
+    
+    @Column(nullable = false)
     private LocalDate checkInDate;
+    
+    @Column
     private LocalDate checkOutDate;
-    private String status; // ACTIVE, INACTIVE, COMPLETED
+    
+    @Column(nullable = false)
+    private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
