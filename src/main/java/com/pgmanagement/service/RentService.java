@@ -62,4 +62,18 @@ public class RentService {
         throw new RuntimeException("Rent record not found for id: " + rentId);
     }
 
+    public List<Rent> getRentsByStatus(String status) {
+        return rentRepository.findByStatus(status);
+    }
+
+    public Rent updateRentStatus(Long rentId, String newStatus) {
+        Optional<Rent> rentOpt = rentRepository.findById(rentId);
+        if (rentOpt.isPresent()) {
+            Rent rent = rentOpt.get();
+            rent.setStatus(newStatus);
+            return rentRepository.save(rent);
+        }
+        throw new RuntimeException("Rent record not found for id: " + rentId);
+    }
+
 }
