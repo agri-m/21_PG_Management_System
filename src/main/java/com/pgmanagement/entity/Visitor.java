@@ -1,31 +1,25 @@
 package com.pgmanagement.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "visitors")
+@Document(collection = "visitors")
 public class Visitor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String contactNumber;
 
     private String purpose;
 
-    @Column(name = "in_time")
     private LocalDateTime inTime;
 
-    @Column(name = "out_time")
     private LocalDateTime outTime;
 
-    @Enumerated(EnumType.STRING)
     private VisitorStatus status;
 
     public Long getId() {

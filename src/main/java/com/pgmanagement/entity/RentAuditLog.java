@@ -1,32 +1,24 @@
 package com.pgmanagement.entity;
 
 import com.pgmanagement.enums.RentStatus;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "rent_audit_logs")
+@Document(collection = "rent_audit_logs")
 public class RentAuditLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rent_id", nullable = false)
     private Long rentId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "old_status")
     private RentStatus oldStatus;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "new_status", nullable = false)
     private RentStatus newStatus;
 
-    @Column(name = "changed_at", nullable = false)
     private LocalDateTime changedAt;
 
-    @Column(name = "changed_by")
     private String changedBy;
 
     public RentAuditLog() {}

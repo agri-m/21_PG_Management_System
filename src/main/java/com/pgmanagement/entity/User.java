@@ -1,25 +1,20 @@
 package com.pgmanagement.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
     private String name;
     
-    @Column(unique = true, nullable = false)
     private String email;
     
-    @Column(unique = true)
     private String phone;
     
-    @Column(nullable = false)
     private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

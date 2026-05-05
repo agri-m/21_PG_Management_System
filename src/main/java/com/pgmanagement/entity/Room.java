@@ -1,25 +1,20 @@
 package com.pgmanagement.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "rooms")
+@Document(collection = "rooms")
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique = true, nullable = false)
     private String roomNumber;
     
-    @Column(nullable = false)
     private Integer floor;
     
-    @Column(nullable = false)
     private Integer totalBeds;
     
-    @Column(nullable = false)
     private Long ownerId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

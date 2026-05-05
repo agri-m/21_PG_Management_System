@@ -3,3 +3,6 @@ server:
 spring:
   application:
     name: pg-management-system
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/pg_management
