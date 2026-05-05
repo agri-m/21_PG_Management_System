@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   MdDashboard, MdBedroomParent, MdPeople, MdPayments,
-  MdSecurity, MdVisibility, MdComplaint, MdMenu, MdClose,
+  MdSecurity, MdVisibility, MdFeedback, MdMenu, MdClose,
   MdHome, MdAdminPanelSettings, MdChevronRight
 } from 'react-icons/md';
 import { FaBuilding, FaShieldAlt, FaUser } from 'react-icons/fa';
@@ -28,7 +28,7 @@ const NAV_SECTIONS = [
     items: [
       { path: '/tenant/dashboard', label: 'My Room',    icon: <MdHome /> },
       { path: '/tenant/payment',   label: 'Pay Rent',   icon: <MdPayments /> },
-      { path: '/tenant/complaint', label: 'Complaint',  icon: <MdComplaint /> },
+      { path: '/tenant/complaint', label: 'Complaint',  icon: <MdFeedback /> },
     ],
   },
   {

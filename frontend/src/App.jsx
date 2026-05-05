@@ -2,40 +2,34 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import MainLayout from './components/layout/MainLayout';
 import './App.css';
 
-// ── Placeholder page (replaced phase by phase) ────────────────────
-const ComingSoon = ({ label }) => (
-  <div className="page-content fade-in">
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '70vh',
-    }}>
-      <div style={{
-        textAlign: 'center',
-        padding: 'var(--space-2xl)',
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        boxShadow: 'var(--shadow-glow)',
-        maxWidth: '400px',
-      }}>
-        <span style={{ fontSize: '3rem', display: 'block', marginBottom: 'var(--space-md)' }}>🚧</span>
-        <h2>{label}</h2>
-        <p style={{ color: 'var(--text-secondary)', marginTop: 'var(--space-sm)' }}>
-          This page will be built in the next phase.
-        </p>
-      </div>
-    </div>
-  </div>
-);
+// Auth
+import Login from './pages/auth/Login';
+
+// Admin
+import AdminDashboard from './pages/admin/AdminDashboard';
+import RoomManagement from './pages/admin/RoomManagement';
+import TenantManagement from './pages/admin/TenantManagement';
+import RentDashboard from './pages/admin/RentDashboard';
+import VisitorApproval from './pages/admin/VisitorApproval';
+
+// Tenant
+import TenantDashboard from './pages/tenant/TenantDashboard';
+import PaymentUpload from './pages/tenant/PaymentUpload';
+import ComplaintForm from './pages/tenant/ComplaintForm';
+
+// Guard
+import GuardDashboard from './pages/guard/GuardDashboard';
+import VisitorEntry from './pages/guard/VisitorEntry';
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+        {/* Default redirect to login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
+        {/* Auth pages (no layout) */}
+        <Route path="/login" element={<Login />} />
 
         {/* ── All layout routes ── */}
         <Route
@@ -44,30 +38,31 @@ function App() {
             <MainLayout>
               <Routes>
                 {/* Admin */}
-                <Route path="admin/dashboard" element={<ComingSoon label="Admin Dashboard" />} />
-                <Route path="admin/rooms"      element={<ComingSoon label="Room Management" />} />
-                <Route path="admin/tenants"    element={<ComingSoon label="Tenant Management" />} />
-                <Route path="admin/rent"       element={<ComingSoon label="Rent Dashboard" />} />
-                <Route path="admin/visitors"   element={<ComingSoon label="Visitor Approval" />} />
+                <Route path="admin/dashboard" element={<AdminDashboard />} />
+                <Route path="admin/rooms"      element={<RoomManagement />} />
+                <Route path="admin/tenants"    element={<TenantManagement />} />
+                <Route path="admin/rent"       element={<RentDashboard />} />
+                <Route path="admin/visitors"   element={<VisitorApproval />} />
 
                 {/* Tenant */}
-                <Route path="tenant/dashboard" element={<ComingSoon label="Tenant Dashboard" />} />
-                <Route path="tenant/payment"   element={<ComingSoon label="Payment Upload" />} />
-                <Route path="tenant/complaint" element={<ComingSoon label="Complaint Form" />} />
+                <Route path="tenant/dashboard" element={<TenantDashboard />} />
+                <Route path="tenant/payment"   element={<PaymentUpload />} />
+                <Route path="tenant/complaint" element={<ComplaintForm />} />
 
                 {/* Guard */}
-                <Route path="guard/dashboard"  element={<ComingSoon label="Guard Dashboard" />} />
-                <Route path="guard/visitors"   element={<ComingSoon label="Visitor Entry" />} />
+                <Route path="guard/dashboard"  element={<GuardDashboard />} />
+                <Route path="guard/visitors"   element={<VisitorEntry />} />
 
                 {/* 404 */}
-                <Route path="*" element={<ComingSoon label="404 – Page Not Found" />} />
+                <Route path="*" element={
+                  <div className="page-content fade-in" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <h2>404 - Page Not Found</h2>
+                  </div>
+                } />
               </Routes>
             </MainLayout>
           }
         />
-
-        {/* Auth pages (no layout) */}
-        <Route path="/login" element={<ComingSoon label="Login" />} />
       </Routes>
     </Router>
   );
