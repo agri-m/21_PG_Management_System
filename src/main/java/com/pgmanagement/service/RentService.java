@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class handling the core business logic for rent management,
+ * including tracking, payment uploads, and verifications.
+ */
 @Service
 public class RentService {
 
