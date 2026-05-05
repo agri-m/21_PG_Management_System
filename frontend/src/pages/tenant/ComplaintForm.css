@@ -1,0 +1,85 @@
+.complaint-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  width: fit-content;
+  margin-bottom: var(--space-lg);
+}
+
+.complaint-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 18px;
+  background: none;
+  border: none;
+  border-radius: calc(var(--radius-md) - 2px);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--ease-fast);
+  font-family: var(--font-body);
+}
+.complaint-tab--active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+.complaint-tab:hover:not(.complaint-tab--active) {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.complaint-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-lg);
+  align-items: start;
+}
+@media (max-width: 900px) { .complaint-layout { grid-template-columns: 1fr; } }
+
+/* Priority Indicator */
+.priority-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px 14px;
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.02);
+  margin-bottom: var(--space-md);
+  transition: border-color var(--ease-base);
+}
+.priority-dot {
+  width: 8px; height: 8px; min-width: 8px;
+  border-radius: 50%;
+}
+
+/* Tips */
+.complaint-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.complaint-tip span { font-size: 1rem; }
+
+/* History */
+.complaint-history { display: flex; flex-direction: column; gap: var(--space-md); }
+
+.complaint-history-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.complaint-history-card__desc { font-size: 0.875rem; color: var(--text-primary); margin-bottom: 6px; }
+.complaint-history-card__date { font-size: 0.75rem; color: var(--text-muted); }

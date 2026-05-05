@@ -1,0 +1,17 @@
+.guard-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--clr-success);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guard-live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--clr-success);
+  animation: pulse-glow 1.5s infinite;
+}

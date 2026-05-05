@@ -1,0 +1,76 @@
+.visitor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.visitor-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  transition: all var(--ease-base);
+}
+
+.visitor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.visitor-card--pending  { border-top: 3px solid var(--clr-warning); }
+.visitor-card--approved { border-top: 3px solid var(--clr-success); }
+.visitor-card--rejected { border-top: 3px solid var(--clr-danger);  opacity: 0.75; }
+
+.visitor-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.visitor-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-display);
+}
+
+.visitor-card__info { flex: 1; }
+.visitor-card__info h4 { font-size: 0.9rem; font-weight: 700; }
+.visitor-card__info p  { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+.visitor-card__body { padding: var(--space-md) var(--space-lg); }
+
+.visitor-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.visitor-meta__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.visitor-meta__item span { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.visitor-meta__item strong { font-size: 0.85rem; color: var(--text-primary); font-weight: 600; }
+
+.visitor-card__actions {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg) var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.visitor-card__actions .btn { flex: 1; justify-content: center; }
+
+.visitor-confirm-info { text-align: center; }
