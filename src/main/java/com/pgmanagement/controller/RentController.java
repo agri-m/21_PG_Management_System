@@ -1,8 +1,12 @@
 package com.pgmanagement.controller;
 
-import com.pgmanagement.dto.PaymentDTO;
+import com.pgmanagement.dto.PaymentUploadRequest;
 import com.pgmanagement.entity.Rent;
+import com.pgmanagement.enums.RentStatus;
 import com.pgmanagement.service.RentService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/rents")
 public class RentController {
 
+    private static final Logger log = LoggerFactory.getLogger(RentController.class);
     private final RentService rentService;
 
     @Autowired
@@ -22,7 +27,8 @@ public class RentController {
     }
 
     @PostMapping
-    public ResponseEntity<Rent> createRent(@RequestBody Rent rent) {
+    public ResponseEntity<Rent> createRent(@Valid @RequestBody Rent rent) {
+        log.info("REST request to create Rent");
         Rent createdRent = rentService.createRent(rent);
         return new ResponseEntity<>(createdRent, HttpStatus.CREATED);
     }
@@ -34,9 +40,7 @@ public class RentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Rent> getRentById(@PathVariable Long id) {
-        return rentService.getRentById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(rentService.getRentById(id));
     }
 
     @GetMapping("/user/{userId}")
@@ -45,37 +49,28 @@ public class RentController {
     }
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<Rent>> getRentsByStatus(@PathVariable String status) {
+    public ResponseEntity<List<Rent>> getRentsByStatus(@PathVariable RentStatus status) {
         return ResponseEntity.ok(rentService.getRentsByStatus(status));
     }
 
     @PostMapping("/upload-payment")
-    public ResponseEntity<Rent> uploadPayment(@RequestBody PaymentDTO paymentDTO) {
-        try {
-            Rent updatedRent = rentService.uploadPayment(paymentDTO);
-            return ResponseEntity.ok(updatedRent);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Rent> uploadPayment(@Valid @RequestBody PaymentUploadRequest request) {
+        log.info("REST request to upload payment");
+        Rent updatedRent = rentService.uploadPayment(request);
+        return ResponseEntity.ok(updatedRent);
     }
 
     @PostMapping("/{id}/verify-payment")
     public ResponseEntity<Rent> verifyPayment(@PathVariable Long id, @RequestParam boolean isVerified) {
-        try {
-            Rent verifiedRent = rentService.verifyPayment(id, isVerified);
-            return ResponseEntity.ok(verifiedRent);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        log.info("REST request to verify payment for rent: {}", id);
+        Rent verifiedRent = rentService.verifyPayment(id, isVerified);
+        return ResponseEntity.ok(verifiedRent);
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Rent> updateRentStatus(@PathVariable Long id, @RequestParam String status) {
-        try {
-            Rent updatedRent = rentService.updateRentStatus(id, status);
-            return ResponseEntity.ok(updatedRent);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Rent> updateRentStatus(@PathVariable Long id, @RequestParam RentStatus status) {
+        log.info("REST request to update rent status to: {}", status);
+        Rent updatedRent = rentService.updateRentStatus(id, status);
+        return ResponseEntity.ok(updatedRent);
     }
 }
