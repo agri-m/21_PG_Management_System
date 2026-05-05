@@ -1,5 +1,6 @@
 package com.pgmanagement.service;
 
+import com.pgmanagement.dto.PaymentDTO;
 import com.pgmanagement.entity.Rent;
 import com.pgmanagement.repository.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,18 @@ public class RentService {
 
     public List<Rent> getRentsByUserId(Long userId) {
         return rentRepository.findByUserId(userId);
+    }
+
+    public Rent uploadPayment(PaymentDTO paymentDTO) {
+        Optional<Rent> rentOpt = rentRepository.findById(paymentDTO.getRentId());
+        if (rentOpt.isPresent()) {
+            Rent rent = rentOpt.get();
+            rent.setPaymentDate(paymentDTO.getPaymentDate());
+            rent.setStatus("PAYMENT_UPLOADED"); // Status changes to UPLOADED, awaiting verification
+            // Could save transaction reference in Rent entity if property existed, for now just updating status
+            return rentRepository.save(rent);
+        }
+        throw new RuntimeException("Rent record not found for id: " + paymentDTO.getRentId());
     }
 
 }
