@@ -47,4 +47,19 @@ public class RentService {
         throw new RuntimeException("Rent record not found for id: " + paymentDTO.getRentId());
     }
 
+    public Rent verifyPayment(Long rentId, boolean isVerified) {
+        Optional<Rent> rentOpt = rentRepository.findById(rentId);
+        if (rentOpt.isPresent()) {
+            Rent rent = rentOpt.get();
+            if (isVerified) {
+                rent.setStatus("PAID");
+            } else {
+                rent.setStatus("PAYMENT_REJECTED");
+                rent.setPaymentDate(null); // Clear payment date if rejected
+            }
+            return rentRepository.save(rent);
+        }
+        throw new RuntimeException("Rent record not found for id: " + rentId);
+    }
+
 }
