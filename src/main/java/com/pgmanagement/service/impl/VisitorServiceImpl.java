@@ -40,7 +40,19 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public Visitor updateVisitorStatus(Long id, String status) {
-        // To be implemented in approval logic
-        return null;
+        Visitor visitor = getVisitorById(id);
+        
+        try {
+            VisitorStatus newStatus = VisitorStatus.valueOf(status.toUpperCase());
+            visitor.setStatus(newStatus);
+            
+            if (newStatus == VisitorStatus.CHECKED_OUT) {
+                visitor.setOutTime(LocalDateTime.now());
+            }
+            
+            return visitorRepository.save(visitor);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid status: " + status);
+        }
     }
 }
